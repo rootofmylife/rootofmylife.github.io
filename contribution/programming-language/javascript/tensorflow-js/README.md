@@ -18,4 +18,4 @@ It should open your browser at `http://localhost:1234`
 
 For more information:
 
-Check this URL: https://github.com/charliegerard/fem-ml-workshop/tree/main
+Check this URL: [ML Project](https://github.com/charliegerard/fem-ml-workshop/tree/main)
