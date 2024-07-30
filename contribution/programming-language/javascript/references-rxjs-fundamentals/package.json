@@ -1,0 +1,19 @@
+{
+  "name": "rxjs-fundamentals",
+  "version": "0.0.0",
+  "author": "Steve Kinney <hello+frontendmasters@stevekinney.net>",
+  "scripts": {
+    "api": "node api/server.js",
+    "test": "jest --watch"
+  },
+  "type": "module",
+  "devDependencies": {
+    "eslint": "^8.2.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.25.3",
+    "prettier": "^2.4.1"
+  },
+  "dependencies": {
+    "rxjs": "^7.4.0"
+  }
+}
