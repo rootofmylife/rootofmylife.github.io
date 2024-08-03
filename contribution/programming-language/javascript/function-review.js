@@ -288,9 +288,238 @@ function concat(generator1, generator2) {
     };
 }
 
+// Make a function gensymf that makes a function that generates unique symbols.
+// var geng = gensymf('G');
+// var genh = gensymf('H');
+// geng(); // 'G1'
+// genh(); // 'H1'
+// geng(); // 'G2'
+// genh(); // 'H2'
+function gensymf(prefix) {
+    var number = 0;
+    return function() {
+        number++;
+        return prefix + number;
+    };
+}
 
+// Write a function gensymff that takes a unary function and a seed and returns a gensymf.
+// var gensymf = gensymff(inc, 0);
+// var geng = gensymf('G');
+// var genh = gensymf('H');
+// geng(); // 'G1'
+// genh(); // 'H1'
+// geng(); // 'G2'
+// genh(); // 'H2'
+function gensymff(unary, seed) {
+    return function(prefix) {
+        var number = seed;
+        return function() {
+            number = unary(number);
+            return prefix + number;
+        };
+    };
+}
 
+// Make a function fibonaccif that returns a generator that will return the next fibonacci number. 
+// var fib = fibonaccif(0, 1);
+// fib(); // 0
+// fib(); // 1
+// fib(); // 1
+// fib(); // 2
+// fib(); // 3
+// fib(); // 5
+function fibonaccif(a, b) {
+    return function() {
+        var next = a;
+        a = b;
+        b += next;
+        return next;
+    };
+}
 
+// Write a counter function that returns an object containing two functions that implement an up/down counter, hiding the counter.
+// var object = counter(10);
+// var up = object.up;
+// var down = object.down;
+// up(); // 11
+// down(); // 10
+// down(); // 9
+// up(); // 10
+function counter(value) {
+    return {
+        up: function() {
+            value++;
+            return value;
+        },
+        down: function() {
+            value--;
+            return value;
+        }
+    };
+}
+
+// Make a revocable function that takes a binary function, and returns an object containing an invoke function that can invoke the binary function, and a revoke function that disables the invoke function.
+// var rev = revocable(add);
+// var add_rev = rev.invoke;
+// add_rev(3, 4); // 7
+// rev.revoke();
+// add_rev(5, 7); // undefined
+function revocable(binary) {
+    return {
+        invoke: function(a, b) {
+            if (binary !== undefined) {
+                return binary(a, b);
+            }
+            return undefined;
+        },
+        revoke: function() {
+            binary = undefined;
+        }
+    };
+}
+
+// Write a function m that takes a value and an optional source string and returns them in an object.
+// var obj = m(1);
+// obj; // {value: 1, source: "1"}
+// var obj = m(Math.PI, 'pi');
+// obj; // {value: 3.14159..., source: "pi"}
+function m(value, source) {
+    return {
+        value: value,
+        source: (typeof source === 'string') ? source : String(value)
+    };
+}
+
+// Write a function addm that takes two m objects and returns an m object.
+// var obj = addm(m(3), m(4));
+// obj; // {value: 7, source: "(3+4)"}
+// addm(m(1), m(Math.PI, 'pi')); // {value: 4.14159..., source: "(1+pi)"}
+function addm(m1, m2) {
+    return m(
+        m1.value + m2.value,
+        '(' + m1.source + '+' + m2.source + ')'
+    );
+}
+
+// Write a function liftm that takes a binary function and a string and returns a function that acts on m objects.
+// var addm = liftm(add, '+');
+// addm(m(3), m(4)); // {value: 7, source: "(3+4)"}
+// liftm(mul, '*')(m(3), m(4)); // {value: 12, source: "(3*4)"}
+// liftm(mul, '*')(3, 4); // {value: 12, source: "(3*4)"}
+function liftm(binary, op) {
+    return function(m1, m2) {
+        return m(
+            binary(m1.value, m2.value),
+            '(' + m1.source + op + m2.source + ')'
+        );
+    };
+}
+
+// Modify liftm so that the functions it produces can accept arguments that are either numbers or m objects.
+// var addm = liftm(add, '+');
+// addm(3, 4); // {value: 7, source: "(3+4)"}
+// addm(m(3), 4); // {value: 7, source: "(3+4)"}
+function liftm(binary, op) {
+    return function(m1, m2) {
+        if (typeof m1 === 'number') {
+            m1 = m(m1);
+        }
+        if (typeof m2 === 'number') {
+            m2 = m(m2);
+        }
+        return m(
+            binary(m1.value, m2.value),
+            '(' + m1.source + op + m2.source + ')'
+        );
+    };
+}
+
+// Write a function exp that evaluates simple array expressions.
+// var sae = [mul, 5, 11];
+// exp(sae); // 55
+// exp(42); // 42
+function exp(value) {
+    if (Array.isArray(value)) {
+        return value[0](value[1], value[2]);
+    }
+    return value;
+}
+
+// Modify exp to evaluate nested array expressions.
+// var nae = [Math.sqrt, [add, [square, 3], [square, 4]]];
+// exp(nae); // 5
+// exp(42); // 42
+function exp(value) {
+    if (Array.isArray(value)) {
+        return value[0](exp(value[1]), exp(value[2]));
+    }
+    return value;
+}
+
+// Write a function addg that adds from many invocations, until it sees an empty invocation.
+// addg(); // undefined
+// addg(2)(); // 2
+// addg(3)(); // 5
+// addg(1)(2)(4)(); // 7
+// addg(1)(2)(4)(8)(); // 15
+function addg(first) {
+    function more(next) {
+        if (next === undefined) {
+            return first;
+        }
+        first += next;
+        return more;
+    }
+    if (first !== undefined) {
+        return more;
+    }
+}
+
+// Write a function liftg that will take a binary function and apply it to many invocations.
+// liftg(mul)(); // undefined
+// liftg(mul)(3)(); // 3
+// liftg(mul)(3)(0)(4)(); // 0
+// liftg(mul)(1)(2)(4)(8)(); // 64
+function liftg(binary) {
+    function more(result) {
+        if (result === undefined) {
+            return result;
+        }
+        return function(next) {
+            if (next === undefined) {
+                return result;
+            }
+            result = binary(result, next);
+            return more;
+        };
+    }
+}
+
+// Write a function arrayg that will build an array from many invocations.
+// arrayg(); // []
+// arrayg(3)(); // [3]
+// arrayg(3)(4)(5)(); // [3, 4, 5]
+function arrayg(first) {
+    var array = [];
+    function more(next) {
+        if (next === undefined) {
+            return array;
+        }
+        array.push(next);
+        return more;
+    }
+    return more(first);
+}
+
+// Write a function continuize that takes a unary function, and returns a function that takes a callback and an argument.
+// sqrtc = continuize(Math.sqrt);
+// sqrtc(console.log, 81); // 9
+function continuize(unary) {
+    return function(callback, arg) {
+        return callback(unary(arg));
+    };
+}
 
 
 
