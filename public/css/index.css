@@ -1,0 +1,223 @@
+:root {
+  --black: #171321;
+  --dkblue: #0d314b;
+  --plum: #4b0d49;
+  --hotmag: #ff17e4;
+  --magenta: #e310cb;
+  --aqua: #86fbfb;
+  --white: #f7f8fa;
+  --font-size: 1.3rem;
+  --mono: "Oxygen mono", monospace;
+  --sans: Oxygen, sans-serif;
+}
+
+html {
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  font-family: var(--sans);
+  background-color: var(--black);
+  color: var(--white);
+  font-size: var(--font-size);
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
+}
+
+a {
+  color: var(--magenta);
+}
+
+a:hover {
+  text-decoration: none;
+  color: var(--hotmag);
+}
+
+.sr-only:not(:focus):not(:active) {
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+.gradient-line {
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    rgba(221, 23, 228, 1) 0%,
+    rgba(134, 251, 251, 1) 100%
+  );
+}
+
+/* intro */
+#intro {
+  padding: 4rem 1rem 10rem 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+#intro p {
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+#intro .name {
+  font-family: var(--mono);
+}
+
+.name span {
+  font-family: var(--sans);
+  font-size: 4rem;
+  color: var(--aqua);
+  display: block; /* add this to make the text take all the width */
+}
+
+#intro h2 {
+  font-size: 4rem;
+  font-weight: normal;
+}
+
+/* contact */
+.contact-container {
+  background-color: var(--plum);
+}
+
+#contact {
+  width: 400px;
+  text-align: center;
+  margin: 0 auto;
+  padding: 3rem 0;
+}
+
+#contact p:last-child {
+  margin-top: 3rem;
+}
+
+/* nav */
+nav {
+  padding: 1rem;
+  font-family: var(--mono);
+  font-size: 80%;
+}
+
+nav h1 a {
+  font-family: var(--sans);
+}
+
+nav ul {
+  list-style-type: none;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+  align-items: center;
+  gap: 2rem;
+}
+
+nav li:first-child {
+  flex-basis: 100%;
+  text-align: center;
+}
+
+nav [class*="icon-"] {
+  font-size: 150%;
+  fill: var(--aqua);
+}
+
+nav h1 [class*="icon-"] {
+  font-size: 100%;
+  fill: var(--aqua);
+}
+
+nav a {
+  color: var(--white);
+  text-decoration: none;
+  display: block; /* add this to make all around area of link to clickable instead just the text itself */
+}
+
+nav a:hover {
+  color: var(--magenta);
+}
+
+nav [class*="icon-"]:hover {
+  fill: var(--magenta);
+}
+
+.button {
+  text-decoration: none;
+  font-family: var(--mono);
+  background-color: var(--magenta);
+  color: var(--white);
+  padding: 0.5rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: var(--hotmag);
+  color: var(--white);
+}
+
+/* footer */
+footer {
+  background-color: var(--dkblue);
+  color: var(--white);
+  text-align: center;
+  padding: 4rem 0;
+}
+
+footer [class*="icon-"] {
+  font-size: 150%;
+  fill: var(--aqua);
+}
+
+footer [class*="icon-"]:hover {
+  fill: var(--magenta);
+}
+
+footer ul {
+  list-style-type: none;
+  padding: 2rem 0;
+  margin: 0;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  gap: 3rem;
+  font-size: 3rem;
+}
+
+footer li {
+  margin: auto 0;
+}
+
+/* media queries */
+
+@media (min-width: 850px) {
+  nav {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  nav li:first-child {
+    flex-basis: auto;
+    text-align: left;
+    margin-right: auto;
+  }
+}
