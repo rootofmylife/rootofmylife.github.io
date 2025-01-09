@@ -7,8 +7,8 @@
   --aqua: #86fbfb;
   --white: #f7f8fa;
   --font-size: 1.3rem;
-  --mono: "Oxygen mono", monospace;
-  --sans: Oxygen, sans-serif;
+  --noto: "Noto Serif", monospace;
+  --sans: "Noto Sans", sans-serif;
 }
 
 html {
@@ -55,6 +55,7 @@ a:hover {
   width: 1px;
 }
 
+/* https://cssgradient.io/ */
 .gradient-line {
   height: 2px;
   background: linear-gradient(
@@ -77,7 +78,7 @@ a:hover {
 }
 
 #intro .name {
-  font-family: var(--mono);
+  font-family: var(--noto);
 }
 
 .name span {
@@ -111,7 +112,7 @@ a:hover {
 /* nav */
 nav {
   padding: 1rem;
-  font-family: var(--mono);
+  font-family: var(--noto);
   font-size: 80%;
 }
 
@@ -161,7 +162,7 @@ nav [class*="icon-"]:hover {
 
 .button {
   text-decoration: none;
-  font-family: var(--mono);
+  font-family: var(--noto);
   background-color: var(--magenta);
   color: var(--white);
   padding: 0.5rem;
