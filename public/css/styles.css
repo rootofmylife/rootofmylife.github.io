@@ -1,0 +1,304 @@
+@layer normalize, base, components, nav, intro, projects, contact, footer;
+
+@import url("library/normalize.css") layer(normalize);
+@import url("index.css") layer(base);
+
+@layer utilities {
+  .sr-only:not(:focus):not(:active) {
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    height: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
+  }
+
+  /* https://cssgradient.io/ */
+  .gradient-line {
+    height: 2px;
+    background: linear-gradient(
+      90deg,
+      rgba(221, 23, 228, 1) 0%,
+      rgba(134, 251, 251, 1) 100%
+    );
+  }
+}
+
+@layer components {
+  a {
+    color: var(--magenta);
+  }
+
+  a:hover {
+    text-decoration: none;
+    color: var(--hotmag);
+  }
+
+  .button {
+    text-decoration: none;
+    font-family: var(--noto);
+    background-color: var(--magenta);
+    color: var(--white);
+    padding: 0.5rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .button:hover {
+    background-color: var(--hotmag);
+    color: var(--white);
+  }
+}
+
+@layer nav {
+  nav {
+    padding: 1rem;
+    font-family: var(--noto);
+    font-size: 80%;
+  }
+
+  nav h1 a {
+    font-family: var(--sans);
+  }
+
+  nav ul {
+    list-style-type: none;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    padding: 0;
+    margin: 0;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  nav li:first-child {
+    flex-basis: 100%;
+    text-align: center;
+  }
+
+  nav [class*="icon-"] {
+    font-size: 150%;
+    fill: var(--aqua);
+  }
+
+  nav h1 [class*="icon-"] {
+    font-size: 100%;
+    fill: var(--aqua);
+  }
+
+  nav a {
+    color: var(--white);
+    text-decoration: none;
+    display: block; /* add this to make all around area of link to clickable instead just the text itself */
+  }
+
+  /* 
+    Prevent `a` with `.button` class from 
+    inheriting the color from `a` tag when hovered
+   */
+  nav a:not(.button):hover {
+    color: var(--magenta);
+  }
+
+  nav [class*="icon-"]:hover {
+    fill: var(--magenta);
+  }
+}
+
+@layer intro {
+  #intro {
+    padding: 4rem 1rem 10rem 1rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  #intro p {
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+
+  #intro .name {
+    font-family: var(--noto);
+  }
+
+  .name span {
+    font-family: var(--sans);
+    font-size: 4rem;
+    color: var(--aqua);
+    display: block; /* add this to make the text take all the width */
+  }
+
+  #intro h2 {
+    font-size: 4rem;
+    font-weight: normal;
+  }
+}
+
+@layer projects {
+  .project-container {
+    background-color: var(--dkblue);
+  }
+
+  #projects {
+    padding: 4rem 1rem;
+  }
+
+  #projects h2 {
+    font-size: 2.5rem;
+    margin-bottom: calc(2.5rem * 1.5);
+  }
+
+  #projects h3 {
+    color: var(--aqua);
+  }
+
+  #projects h4 {
+    font-size: 1rem;
+    font-family: var(--noto);
+    margin: 0;
+  }
+
+  .blackbox {
+    padding: 1rem;
+    border-radius: 10px;
+    color: white;
+    background-color: var(--black);
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+
+  #projects ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+    gap: 1rem;
+    font-size: 1rem;
+  }
+
+  #projects img {
+    margin: 2rem 0 4rem 0;
+    padding: 1rem;
+    border-left: 1px solid var(--aqua);
+    border-top: 1px solid var(--aqua);
+    border-radius: 25px;
+  }
+
+  img {
+    width: 100%;
+  }
+}
+
+@layer contact {
+  .contact-container {
+    background-color: var(--plum);
+  }
+
+  #contact {
+    width: 400px;
+    text-align: center;
+    margin: 0 auto;
+    padding: 3rem 0;
+  }
+
+  #contact p:last-child {
+    margin-top: 3rem;
+  }
+}
+
+@layer footer {
+  footer {
+    background-color: var(--dkblue);
+    color: var(--white);
+    text-align: center;
+    padding: 4rem 0;
+  }
+
+  footer [class*="icon-"] {
+    font-size: 150%;
+    fill: var(--aqua);
+  }
+
+  footer [class*="icon-"]:hover {
+    fill: var(--magenta);
+  }
+
+  footer ul {
+    list-style-type: none;
+    padding: 2rem 0;
+    margin: 0;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    gap: 3rem;
+    font-size: 3rem;
+  }
+
+  footer li {
+    margin: auto 0;
+  }
+}
+
+/* media queries */
+
+@media (min-width: 800px) {
+  article {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    gap: 1rem;
+  }
+
+  #projects {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  #projects img {
+    grid-column: 1 / 6;
+    grid-row: 1 / 2;
+  }
+
+  #projects .text {
+    order: 2;
+    text-align: right;
+    grid-column: 5 / 11;
+    grid-row: 1 / 2;
+  }
+
+  #projects ul {
+    justify-content: end;
+  }
+
+  #projects .reverse img {
+    grid-column: 6 / 11;
+    grid-row: 1 / 2;
+  }
+
+  #projects .reverse .text {
+    text-align: left;
+    grid-column: 1 / 7;
+    grid-row: 1 / 2;
+  }
+
+  #projects .reverse ul {
+    justify-content: start;
+  }
+}
+
+@media (min-width: 850px) {
+  nav {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  nav li:first-child {
+    flex-basis: auto;
+    text-align: left;
+    margin-right: auto;
+  }
+}
