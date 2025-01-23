@@ -24,6 +24,41 @@ DROP DATABASE database_name;
 USE database_name;
 ```
 
+## Show all users
+
+```sql
+SELECT user FROM mysql.user;
+```
+
+## Create a user
+
+```sql
+CREATE USER 'username'@'localhost' IDENTIFIED BY 'password';
+```
+
+## Grant privileges
+
+```sql
+GRANT ALL PRIVILEGES ON database_name
+TO 'username'@'localhost';
+```
+
+Replace `ALL PRIVILEGES` with the privileges you want to grant.
+
+For example, to grant only `SELECT` privileges:
+
+```sql
+GRANT SELECT ON database_name
+TO 'username'@'localhost';
+```
+
+## Revoke privileges
+
+```sql
+REVOKE ALL PRIVILEGES ON database_name
+FROM 'username'@'localhost';
+```
+
 ## Show all tables in a database
 
 ```sql
@@ -189,6 +224,55 @@ CREATE TABLE table_name (
     ...
 );
 ```
+
+### `FOREIGN KEY` constraint
+
+```sql
+CREATE TABLE table_name1 (
+    id INT NOT NULL PRIMARY KEY,
+    column2_name column2_type,
+    ...
+);
+
+CREATE TABLE table_name2 (
+    id INT NOT NULL PRIMARY KEY,
+    column2_name column2_type,
+    table_name1_id INT,
+    FOREIGN KEY (table_name1_id) REFERENCES table_name1(id)
+);
+```
+
+### `ON DELETE CASCADE`
+
+```sql
+CREATE TABLE customers (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    first_name VARCHAR(50),
+    last_name VARCHAR(50),
+    email VARCHAR(50)
+);
+
+CREATE TABLE orders (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    order_date DATE,
+    amount DECIMAL(8 , 2 ),
+    customer_id INT,
+    FOREIGN KEY (customer_id)
+        REFERENCES customers (id)
+        ON DELETE CASCADE
+);
+```
+
+`ON DELETE CASCADE` will delete all orders when a customer is deleted.
+
+For example, to delete a customer:
+
+```sql
+DELETE FROM customers
+WHERE id = 1;
+```
+
+Then, automatically all orders related to this customer will be deleted.
 
 ## Show table structure
 
@@ -553,6 +637,15 @@ FROM table_name;
 SELECT column1_name, COUNT(column2_name) AS result
 FROM table_name
 GROUP BY column1_name;
+```
+
+### `HAVING`
+
+```sql
+SELECT column1_name, COUNT(column2_name) AS result
+FROM table_name
+GROUP BY column1_name
+HAVING COUNT(column2_name) > number;
 ```
 
 ## `MIN`
@@ -1065,4 +1158,175 @@ SELECT first_name, last_name,
            ELSE 'Old'
        END AS age_group
 FROM users;
+```
+
+## `IFNULL`
+
+```sql
+SELECT first_name, last_name, IFNULL(email, 'No email') AS email
+FROM users;
+```
+
+## `JOIN`
+
+### `INNER JOIN`
+
+```sql
+SELECT column1_name, column2_name, ...
+FROM table1_name
+INNER JOIN table2_name
+ON table1_name.column_name = table2_name.column_name;
+```
+
+### `LEFT JOIN`
+
+```sql
+SELECT column1_name, column2_name, ...
+FROM table1_name
+LEFT JOIN table2_name
+ON table1_name.column_name = table2_name.column_name;
+```
+
+### `RIGHT JOIN`
+
+```sql
+SELECT column1_name, column2_name, ...
+FROM table1_name
+RIGHT JOIN table2_name
+ON table1_name.column_name = table2_name.column_name;
+```
+
+### `FULL JOIN`
+
+```sql
+SELECT column1_name, column2_name, ...
+FROM table1_name
+FULL JOIN table2_name
+ON table1_name.column_name = table2_name.column_name;
+```
+
+## `VIEW`
+
+```sql
+CREATE VIEW view_name AS
+SELECT column1_name, column2_name, ...
+FROM table_name
+WHERE condition;
+```
+
+Then, we can use the view:
+
+```sql
+SELECT * FROM view_name;
+```
+
+### `REPLACE VIEW`
+
+```sql
+CREATE OR REPLACE VIEW ordered_series AS
+SELECT * FROM series ORDER BY released_year DESC;
+```
+
+### `DROP VIEW`
+
+```sql
+DROP VIEW ordered_series;
+```
+
+### `ALTER VIEW`
+
+```sql
+ALTER VIEW ordered_series AS
+SELECT * FROM series ORDER BY released_year;
+```
+
+## Window Functions
+
+### `OVER`
+
+```sql
+SELECT column1_name, column2_name, ...
+       SUM(column1_name) OVER (PARTITION BY column2_name) AS result
+FROM table_name;
+```
+
+### With `ORDER BY`
+
+```sql
+SELECT column1_name, column2_name, ...
+       SUM(column1_name) OVER (PARTITION BY column2_name ORDER BY column3_name) AS result
+FROM table_name;
+```
+
+This will sum the result by rolling the `column1_name` partitioned by `column2_name` and ordered by `column3_name`.
+
+### `RANK`
+
+```sql
+SELECT column1_name, column2_name, ...
+       RANK() OVER (PARTITION BY column2_name ORDER BY column3_name) AS result
+FROM table_name;
+```
+
+### `DENSE_RANK`
+
+```sql
+SELECT column1_name, column2_name, ...
+       DENSE_RANK() OVER (PARTITION BY column2_name ORDER BY column3_name) AS result
+FROM table_name;
+```
+
+### `ROW_NUMBER`
+
+```sql
+SELECT column1_name, column2_name, ...
+       ROW_NUMBER() OVER (PARTITION BY column2_name ORDER BY column3_name) AS result
+FROM table_name;
+```
+
+### `FIRST_VALUE`
+
+```sql
+SELECT column1_name, column2_name, ...
+       FIRST_VALUE(column1_name) OVER (PARTITION BY column2_name ORDER BY column3_name) AS result
+FROM table_name;
+```
+
+## `TRIGGER`
+
+### `BEFORE INSERT`
+
+```sql
+CREATE TRIGGER trigger_name
+BEFORE INSERT ON table_name
+FOR EACH ROW
+BEGIN
+    -- Statements
+END;
+```
+
+For example, to set a default value for a column:
+
+```sql
+CREATE TRIGGER set_default_email
+BEFORE INSERT ON users
+FOR EACH ROW
+BEGIN
+    IF NEW.email IS NULL THEN
+        SET NEW.email = 'temp@gmail';
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'Email cannot be null';
+    END IF;
+END;
+```
+
+### `AFTER INSERT`
+
+```sql
+CREATE TRIGGER trigger_name
+AFTER INSERT ON table_name
+FOR EACH ROW
+BEGIN
+    -- Statements
+END;
 ```
