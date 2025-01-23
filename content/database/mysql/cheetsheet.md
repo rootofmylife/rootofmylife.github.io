@@ -12,6 +12,12 @@ SHOW DATABASES;
 CREATE DATABASE database_name;
 ```
 
+### `IF NOT EXISTS`
+
+```sql
+CREATE DATABASE IF NOT EXISTS database_name;
+```
+
 ## Drop a database
 
 ```sql
@@ -242,6 +248,22 @@ CREATE TABLE table_name2 (
 );
 ```
 
+#### Add `FOREIGN KEY` to an existing table
+
+```sql
+ALTER TABLE table_name2
+ADD FOREIGN KEY (table_name1_id) REFERENCES table_name1(id);
+```
+
+#### Drop `FOREIGN KEY`
+
+```sql
+ALTER TABLE table_name2
+DROP FOREIGN KEY fk_name;
+```
+
+`fk_name` is the name of the foreign key constraint. You can find it by running `SHOW CREATE TABLE table_name2`.
+
 ### `ON DELETE CASCADE`
 
 ```sql
@@ -342,7 +364,7 @@ MODIFY COLUMN email VARCHAR(255) NOT NULL;
 
 ```sql
 ALTER TABLE table_name
-CHANGE COLUMN old_column_name new_column_name column_type;
+CHANGE COLUMN old_column_name new_column_name column_type constraint;
 ```
 
 Or you can use `RENAME COLUMN`:
@@ -420,6 +442,8 @@ WHERE condition;
 
 ## Delete data from a table
 
+This will remove all rows but not reset the auto-increment column.
+
 ```sql
 DELETE FROM table_name -- This will remove all rows
 ```
@@ -429,6 +453,14 @@ DELETE FROM table_name -- This will remove all rows
 ```sql
 DELETE FROM table_name
 WHERE condition;
+```
+
+### `TRUNCATE`
+
+This will remove all rows and reset the auto-increment column.
+
+```sql
+TRUNCATE TABLE table_name;
 ```
 
 ## String functions
@@ -628,6 +660,15 @@ WHERE column_name NOT LIKE pattern;
 
 ```sql
 SELECT COUNT(column_name) AS result
+FROM table_name;
+```
+
+### `COUNT(*)`
+
+This will count all rows, including `NULL` values.
+
+```sql
+SELECT COUNT(*) AS result
 FROM table_name;
 ```
 
@@ -1167,9 +1208,25 @@ SELECT first_name, last_name, IFNULL(email, 'No email') AS email
 FROM users;
 ```
 
+## `COALESCE`
+
+```sql
+SELECT first_name, last_name, COALESCE(email, 'No email') AS email
+FROM users;
+```
+
+With more than 2 arguments:
+
+```sql
+SELECT first_name, last_name, COALESCE(email, phone, 'No contact') AS contact
+FROM users;
+```
+
+The `COALESCE` function will return the first non-`NULL` value.
+
 ## `JOIN`
 
-### `INNER JOIN`
+### `INNER JOIN` = `JOIN`
 
 ```sql
 SELECT column1_name, column2_name, ...
