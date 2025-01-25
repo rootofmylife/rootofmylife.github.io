@@ -32,7 +32,7 @@ To execute a stored procedure, you use the `EXECUTE` statement:
 ### To remove a stored procedure
 
 ```sql
-    DROP PROCEDURE procedure_name;
+    DROP PROCEDURE IF EXISTS procedure_name;
 ```
 
 ## Examples
@@ -78,6 +78,21 @@ Now, call the stored procedure:
 
 ```sql
 CALL get_cars();
+```
+
+```output
++---------+---------------+------+-----------+
+| make    | model         | year | value     |
++---------+---------------+------+-----------+
+| Ferrari | SF90 Stradale | 2020 | 627000.00 |
+| Ferrari | F8 Tributo    | 2019 | 375000.00 |
+| Ferrari | 812 Superfast | 2017 | 335300.00 |
+| Ferrari | GTC4Lusso     | 2016 | 268000.00 |
+| Ferrari | 488 GTB       | 2015 | 254750.00 |
+| Porsche | 911 GT3       | 2020 | 169700.00 |
+| Porsche | Cayman GT4    | 2018 | 118000.00 |
++---------+---------------+------+-----------+
+7 rows in set (0.00 sec)
 ```
 
 ### With Parameters

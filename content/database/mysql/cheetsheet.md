@@ -221,6 +221,20 @@ CREATE TABLE table_name (
 );
 ```
 
+#### Add `PRIMARY KEY` to an existing table
+
+```sql
+ALTER TABLE table_name
+ADD PRIMARY KEY (column_name);
+```
+
+#### Drop `PRIMARY KEY`
+
+```sql
+ALTER TABLE table_name
+DROP PRIMARY KEY;
+```
+
 #### With `AUTO_INCREMENT`
 
 ```sql
@@ -252,14 +266,16 @@ CREATE TABLE table_name2 (
 
 ```sql
 ALTER TABLE table_name2
-ADD FOREIGN KEY (table_name1_id) REFERENCES table_name1(id);
+ADD CONSTRAINT fk_name
+FOREIGN KEY (table_name1_id) REFERENCES table_name1(id);
 ```
 
 #### Drop `FOREIGN KEY`
 
 ```sql
 ALTER TABLE table_name2
-DROP FOREIGN KEY fk_name;
+DROP FOREIGN KEY fk_name,
+DROP INDEX fk_name;
 ```
 
 `fk_name` is the name of the foreign key constraint. You can find it by running `SHOW CREATE TABLE table_name2`.
@@ -343,7 +359,7 @@ DROP COLUMN column_name;
 
 ```sql
 ALTER TABLE table_name
-MODIFY COLUMN column_name column_type;
+MODIFY COLUMN column_name new_column_type;
 ```
 
 #### With a constraint
@@ -1297,93 +1313,29 @@ ALTER VIEW ordered_series AS
 SELECT * FROM series ORDER BY released_year;
 ```
 
-## Window Functions
+## Sub queries
 
-### `OVER`
-
-```sql
-SELECT column1_name, column2_name, ...
-       SUM(column1_name) OVER (PARTITION BY column2_name) AS result
-FROM table_name;
-```
-
-### With `ORDER BY`
+### `EXISTS`
 
 ```sql
 SELECT column1_name, column2_name, ...
-       SUM(column1_name) OVER (PARTITION BY column2_name ORDER BY column3_name) AS result
-FROM table_name;
+FROM table_name
+WHERE EXISTS (SELECT column1_name FROM table_name WHERE condition);
 ```
 
-This will sum the result by rolling the `column1_name` partitioned by `column2_name` and ordered by `column3_name`.
-
-### `RANK`
+### `ANY`
 
 ```sql
 SELECT column1_name, column2_name, ...
-       RANK() OVER (PARTITION BY column2_name ORDER BY column3_name) AS result
-FROM table_name;
+FROM table_name
+WHERE column1_name = ANY (SELECT column1_name FROM table_name WHERE condition);
+``
 ```
 
-### `DENSE_RANK`
+### `ALL`
 
 ```sql
 SELECT column1_name, column2_name, ...
-       DENSE_RANK() OVER (PARTITION BY column2_name ORDER BY column3_name) AS result
-FROM table_name;
-```
-
-### `ROW_NUMBER`
-
-```sql
-SELECT column1_name, column2_name, ...
-       ROW_NUMBER() OVER (PARTITION BY column2_name ORDER BY column3_name) AS result
-FROM table_name;
-```
-
-### `FIRST_VALUE`
-
-```sql
-SELECT column1_name, column2_name, ...
-       FIRST_VALUE(column1_name) OVER (PARTITION BY column2_name ORDER BY column3_name) AS result
-FROM table_name;
-```
-
-## `TRIGGER`
-
-### `BEFORE INSERT`
-
-```sql
-CREATE TRIGGER trigger_name
-BEFORE INSERT ON table_name
-FOR EACH ROW
-BEGIN
-    -- Statements
-END;
-```
-
-For example, to set a default value for a column:
-
-```sql
-CREATE TRIGGER set_default_email
-BEFORE INSERT ON users
-FOR EACH ROW
-BEGIN
-    IF NEW.email IS NULL THEN
-        SET NEW.email = 'temp@gmail';
-        SIGNAL SQLSTATE '45000'
-        SET MESSAGE_TEXT = 'Email cannot be null';
-    END IF;
-END;
-```
-
-### `AFTER INSERT`
-
-```sql
-CREATE TRIGGER trigger_name
-AFTER INSERT ON table_name
-FOR EACH ROW
-BEGIN
-    -- Statements
-END;
+FROM table_name
+WHERE column1_name = ALL (SELECT column1_name FROM table_name WHERE condition);
 ```
