@@ -640,7 +640,19 @@ ORDER BY column_name ASC|DESC;
 ```sql
 SELECT column1_name, column2_name, ...
 FROM table_name
-LIMIT number;
+LIMIT `row_count`; -- only return `row_count` rows
+```
+
+```sql
+SELECT column1_name, column2_name, ...
+FROM table_name
+LIMIT `offset`, `row_count`; -- return `row_count` rows, starting from `offset` (e.g. 10, 20)
+```
+
+```sql
+SELECT column1_name, column2_name, ...
+FROM table_name
+LIMIT `row_count` OFFSET `offset`; -- return `row_count` rows, starting from `offset` (e.g. 10, 20)
 ```
 
 ## `LIKE`
