@@ -54,7 +54,7 @@ Replace `ALL PRIVILEGES` with the privileges you want to grant.
 For example, to grant only `SELECT` privileges:
 
 ```sql
-GRANT SELECT ON database_name
+GRANT SELECT, UPDATE, CREATE ON database_name
 TO 'username'@'localhost';
 ```
 
@@ -137,6 +137,13 @@ CREATE TABLE users (
 ```
 
 This will give you the constraint name `check_age`, not a random name from db system.
+
+##### Drop a named constraint
+
+```sql
+ALTER TABLE users
+DROP CONSTRAINT check_age;
+```
 
 #### Windows function
 
@@ -717,6 +724,14 @@ GROUP BY column1_name
 HAVING COUNT(column2_name) > number;
 ```
 
+## `NOT`
+
+```sql
+SELECT column1_name, column2_name, ...
+FROM table_name
+WHERE NOT condition;
+```
+
 ## `MIN`
 
 ```sql
@@ -872,6 +887,21 @@ FROM table_name;
 ```
 
 - `column_name`: A `DATE` or `DATETIME` column
+
+#### String to date
+
+```sql
+SELECT STR_TO_DATE('date', 'format') AS result;
+```
+
+- `date`: The date string
+- `format`: The format to use
+
+For example, to convert a string to a date:
+
+```sql
+SELECT STR_TO_DATE('2024-02-01', '%Y-%m-%d') AS result;
+```
 
 ### Time Functions
 
@@ -1351,3 +1381,57 @@ SELECT column1_name, column2_name, ...
 FROM table_name
 WHERE column1_name = ALL (SELECT column1_name FROM table_name WHERE condition);
 ```
+
+## Auto commit
+
+### `SET AUTOCOMMIT`
+
+```sql
+SET AUTOCOMMIT = 0; -- Disable auto commit
+```
+
+### `COMMIT`
+
+```sql
+COMMIT; -- Commit the transaction
+```
+
+### `ROLLBACK`
+
+```sql
+ROLLBACK; -- Rollback the transaction
+```
+
+## `UNION`
+
+```sql
+SELECT column1_name, column2_name, ...
+FROM table1_name
+UNION
+SELECT column1_name, column2_name, ...
+FROM table2_name;
+```
+
+### `UNION ALL`
+
+```sql
+SELECT column1_name, column2_name, ...
+FROM table1_name
+UNION ALL
+SELECT column1_name, column2_name, ...
+FROM table2_name;
+```
+
+`UNION ALL` will return all rows, including duplicates.
+
+## `INTERSECT` | `EXCEPT`
+
+```sql
+SELECT column1_name, column2_name, ...
+FROM table1_name
+INTERSECT | EXCEPT
+SELECT column1_name, column2_name, ...
+FROM table2_name;
+```
+
+`INTERSECT` will return rows that are in both tables. `EXCEPT` will return rows that are in the first table but not in the second table.
