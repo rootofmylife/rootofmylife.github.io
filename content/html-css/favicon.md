@@ -37,3 +37,23 @@ Maskable icons should have [bigger paddings](https://w3c.github.io/manifest/#ico
 ## Resources
 
 - [evilmartians](https://evilmartians.com/chronicles/how-to-favicon-in-2021-six-files-that-fit-most-needs)
+
+[https://developer.apple.com/library/archive/documentation/AppleApplications/Reference/SafariWebContent/ConfiguringWebApplications/ConfiguringWebApplications.html](https://developer.apple.com/library/archive/documentation/AppleApplications/Reference/SafariWebContent/ConfiguringWebApplications/ConfiguringWebApplications.html)
+
+[https://evilmartians.com/chronicles/how-to-favicon-in-2021-six-files-that-fit-most-needs](https://evilmartians.com/chronicles/how-to-favicon-in-2021-six-files-that-fit-most-needs)
+
+[https://mobiforge.com/design-development/adding-favicons-in-a-multi-browser-multi-platform-world](https://mobiforge.com/design-development/adding-favicons-in-a-multi-browser-multi-platform-world)
+
+https://realfavicongenerator.net/
+
+[https://github.com/joshbuchea/HEAD?tab=readme-ov-file#icons](https://github.com/joshbuchea/HEAD?tab=readme-ov-file#icons)
+
+[https://dev.to/prachi/simple-steps-to-replace-your-favicon-icon-in-angular-277b](https://dev.to/prachi/simple-steps-to-replace-your-favicon-icon-in-angular-277b)
+
+```output
+<link href="https://a-v2.sndcdn.com/assets/images/sc-icons/fluid-b4e7a64b8b.png" rel="fluid-icon">
+
+<link href="https://a-v2.sndcdn.com/assets/images/sc-icons/ios-a62dfc8fe7.png" rel="apple-touch-icon">
+
+<link href="https://a-v2.sndcdn.com/assets/images/sc-icons/favicon-2cadd14bdb.ico" rel="icon">
+```
