@@ -44,6 +44,8 @@ Run the code and you will see the following output:
 <function always_true at 0x10566fe20>
 ```
 
+I'll talk more about this in `4_introspecting_function.md`.
+
 ## Class Decorator
 
 You can make the class as a decorator just by adding the `__call__` method.
