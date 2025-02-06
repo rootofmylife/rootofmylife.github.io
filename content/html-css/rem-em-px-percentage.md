@@ -9,7 +9,9 @@
 ## So, What’s the Difference?
 
 It’s easy to understand the difference between font-size units when you see them in action. Generally, **1em = 12pt = 16px = 100%**. When using these font-sizes, let’s see what happens when you increase the base font size (using the body CSS selector) from 100% to 120%.
-![[Pasted image 20241103185507.png]]
+
+![Example of font-size units](assets/20241103185507.png)
+
 As you can see, both the em and percent units get larger as the base font-size increases, but pixels and points do not. It can be easy to set an absolute size for your text, but it’s much easier on your visitors to use scalable text that can display on any device or any machine. For this reason, the em and percent units are preferred for web document text.
 
 ## Em vs. Percent
@@ -17,7 +19,9 @@ As you can see, both the em and percent units get larger as the base font-size i
 We’ve decided that point and pixel units are not necessarily best suited for web documents, which leaves us with the em and percent units. In theory, both the em and the percent units are identical, but in application, they actually have a few minor differences that are important to consider.
 
 In the example above, we used the percent unit as our base font-size (on the body tag). **If you change your base font-size from percent to ems** (i.e. **body { font-size: 1em; }**), you _probably_ won’t notice a difference. Let’s see what happens when “1em” is our body font-size, and when the client alters the “Text Size” setting of their browser (this is available in some browsers, such as Internet Explorer).
-![[Pasted image 20241103185658.png]]
+
+![Example of font-size units](assets/20241103185658.png)
+
 When the client’s browser text size is set to “medium,” there is no difference between ems and percent. When the setting is altered, however, the difference is quite large. On the “Smallest” setting, ems are much smaller than percent, and when on the “Largest” setting, it’s quite the opposite, with ems displaying much larger than percent. While some could argue that the em units are scaling as they are truly intended, in practical application, the em text scales too abruptly, with the smallest text becoming hardly legible on some client machines.
 
 ## em and rem units in CSS
@@ -56,7 +60,8 @@ font-size: 1.5em; }
 ```
 
 That will give us this.
-![[Pasted image 20241103190227.png]]
+
+![Example of em usage](assets/20241103190227.png)
 
 The em unit is useful because it allows you to adjust the size of elements on a page based on the font-size of a previously stated element, which helps create a consistent visual hierarchy. This can be useful for creating accessible websites that are easy to read for users with visual impairments.
 
@@ -113,7 +118,7 @@ html {
 
 The result would be this.
 
-![[Pasted image 20241103190528.png]]
+![Example of rem usage](assets/20241103190528.png)
 
 As you can see, despite the child-2 div being inside another divs, it goes back all the way to the html element to inherit its font size.
 
