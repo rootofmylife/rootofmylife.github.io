@@ -246,48 +246,35 @@ print(teams)
 ```python
 
 class Person():
+    def __init__(self):
 
-def __init__(self):
+        self.fname = "Joe"
 
-self.fname = "Joe"
+        self.lname = "Marini"
 
-self.lname = "Marini"
-
-self.age = 25
-
-
+        self.age = 25
 
 # use __repr__ to create a string useful for debugging
 
 def __repr__(self):
-
-return "<Person Class - fname:{0}, lname:{1}, age{2}>".format(self.fname, self.lname, self.age)
-
-
+    return "<Person Class - fname:{0}, lname:{1}, age{2}>".format(self.fname, self.lname, self.age)
 
 # use str for a more human-readable string
 
 def __str__(self):
-
-return "Person ({0} {1} is {2})".format(self.fname, self.lname, self.age)
-
-
+    return "Person ({0} {1} is {2})".format(self.fname, self.lname, self.age)
 
 # use bytes to convert the informal string to a bytes object
 
 def __bytes__(self):
+    val = "Person:{0}:{1}:{2}".format(self.fname, self.lname, self.age)
 
-val = "Person:{0}:{1}:{2}".format(self.fname, self.lname, self.age)
-
-return bytes(val.encode('utf-8'))
-
+    return bytes(val.encode('utf-8'))
 ```
 
 ```python
 
 cls1 = Person()
-
-
 
 # use different Python functions to convert it to a string
 
@@ -307,13 +294,13 @@ print(bytes(cls1))
 
 class myColor():
 
-def __init__(self):
+    def __init__(self):
 
-self.red = 50
+        self.red = 50
 
-self.green = 75
+        self.green = 75
 
-self.blue = 100
+        self.blue = 100
 
 
 
@@ -321,17 +308,17 @@ self.blue = 100
 
 def __getattr__(self, attr):
 
-if attr == "rgbcolor":
+    if attr == "rgbcolor":
 
-return (self.red, self.green, self.blue)
+        return (self.red, self.green, self.blue)
 
-elif attr == "hexcolor":
+    elif attr == "hexcolor":
 
-return "#{0:02x}{1:02x}{2:02x}".format(self.red, self.green, self.blue)
+        return "#{0:02x}{1:02x}{2:02x}".format(self.red, self.green, self.blue)
 
-else:
+    else:
 
-raise AttributeError
+        raise AttributeError
 
 
 
@@ -339,17 +326,17 @@ raise AttributeError
 
 def __setattr__(self, attr, val):
 
-if attr == "rgbcolor":
+    if attr == "rgbcolor":
 
-self.red = val[0]
+        self.red = val[0]
 
-self.green = val[1]
+        self.green = val[1]
 
-self.blue = val[2]
+        self.blue = val[2]
 
-else:
+    else:
 
-super().__setattr__(attr, val)
+        super().__setattr__(attr, val)
 
 
 
