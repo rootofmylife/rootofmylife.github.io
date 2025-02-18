@@ -184,7 +184,7 @@ Object.prototype.hasOwnProperty("baz"); // true
 
 The prototype on object instance is available through **Object.getPrototypeOf(object)** or \***\*proto\*\*** property whereas prototype on constructor function is available through **Object.prototype**.
 
-![[Pasted image 20240810102116.png]]
+![Pasted image 20240810102116.png](./assets/20240810102116.png)
 
 ## Examples
 
