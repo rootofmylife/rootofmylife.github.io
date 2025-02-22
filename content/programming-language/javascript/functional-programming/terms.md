@@ -4,7 +4,7 @@
 
 - Predictable
 - No side effects
-- Same input, same output
+- Same input, same output (deterministic)
 
 ## Higher Order Function
 
