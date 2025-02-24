@@ -1,9 +1,13 @@
 # Meet the Units
 
 1. **“Ems” (em):** The “em” is a scalable unit that is used in web document media. An em is equal to the current font-size, for instance, if the font-size of the document is 12pt, 1em is equal to 12pt. Ems are scalable in nature, so 2em would equal 24pt, .5em would equal 6pt, etc. Ems are becoming increasingly popular in web documents due to scalability and their mobile-device-friendly nature.
+
 2. **Pixels (px):** Pixels are fixed-size units that are used in screen media (i.e. to be read on the computer screen). One pixel is equal to one dot on the computer screen (the smallest division of your screen’s resolution). Many web designers use pixel units in web documents in order to produce a pixel-perfect representation of their site as it is rendered in the browser. One problem with the pixel unit is that it does not scale upward for visually-impaired readers or downward to fit mobile devices.
+
 3. **Points (pt):** Points are traditionally used in print media (anything that is to be printed on paper, etc.). One point is equal to 1/72 of an inch. Points are much like pixels, in that they are fixed-size units and cannot scale in size.
+
 4. **Percent (%):** The percent unit is much like the “em” unit, save for a few fundamental differences. First and foremost, the current font-size is equal to 100% (i.e. 12pt = 100%). While using the percent unit, your text remains fully scalable for mobile devices and for accessibility.
+
 5. **Rem (rem)**: The unit `rem` (root em) stands for the font size of the root element. In an HTML document, the root element is the html element.
 
 ## So, What’s the Difference?
@@ -54,9 +58,22 @@ First, let’s write the HTML
     </div>
   </body>
 </html>
+```
 
-Next, the CSS. .parent{ font-size: 20px; } .child{ font-size: 2em; } p {
-font-size: 1.5em; }
+Next, the CSS.
+
+```css
+.parent {
+  font-size: 20px;
+}
+
+.child {
+  font-size: 2em;
+}
+
+p {
+  font-size: 1.5em;
+}
 ```
 
 That will give us this.
@@ -368,3 +385,7 @@ Unfortunately there's a known bug with Safari where changes to the `:root` font-
 If you switch between projects various different projects, it's quite possible that the apparent font-size of `rem` will have different values. In one project, you might be using an apparent size of `10px` where in another project the apparent size might be `1px`. This can be confusing and cause issues.
 
 My only recommendation here is to stick with `62.5%` to convert `rem` to an apparent size of `10px`, because that has been more common in my experience.
+
+## Source
+
+- [joshwcomeau](https://www.joshwcomeau.com/css/surprising-truth-about-pixels-and-accessibility/)
