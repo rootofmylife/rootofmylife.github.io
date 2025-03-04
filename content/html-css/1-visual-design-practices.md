@@ -30,6 +30,17 @@ A white background with black paragraphs of text means that the points of contra
 - Use a maximum of 2 fonts
 - Use a line length of 45-75 characters
 
+## Font size
+
+- Use `clamp` to set a font size that scales with the viewport width (ref: oddbird)
+
+```css
+html {
+  font-size: clamp(1em, 0.9em + 1vw, 1.5em);
+}
+```
+
 ## Source
 
 - [Source](https://anthonyhobday.com/sideprojects/saferules/)
+- [oddbird](https://www.oddbird.net/2025/02/12/fluid-type/)
