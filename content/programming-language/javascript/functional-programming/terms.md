@@ -1,12 +1,14 @@
 # Terms
 
+Functional programming writes programs using only pure functions (single purpose functions) and immutable data and composes them to create complex programs.
+
 ## Pure Function
 
 - Predictable
-- No side effects
+- No side effects (does not modify data from external state)
 - Same input, same output (deterministic)
 
-## Higher Order Function
+## Higher Order Function (First Class Function)
 
 - A function that takes a function as an argument or returns a function
 
